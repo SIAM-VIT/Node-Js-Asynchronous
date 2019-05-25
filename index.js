@@ -1,23 +1,27 @@
 console.log('Before');
-getUser(1,(user) => {
-    console.log('user',user);
 
-    // Get the repositories
-    getRepositories(user.gitUserName,(repos)=>{
-        console.log('Repos',repos);
+getUser(1,getRepositories);
 
-        // Get the commits
-        getCommits(repos,(commits)=>{
-            console.log('Commits',commits);
-        })
-    });
-});
 console.log('After');
 
-// Ways to get result of Async Opperation
-// 1.Callbacks
-// 2.Promises
-// 3.Async/await
+
+function getRepositories(repos){
+    console.log(repos);
+    getRepositories(user.gitUserName,getCommits);
+}
+
+function getCommits(repos){
+    console.log(commits);
+    getCommits(repos,displayCommits);
+}
+
+function displayCommits(commits){
+    console.log(commits);
+}
+
+function displayUser(user){
+    console.log(user);
+}
 
 // This function is Async
 function getUser(id,callback){
