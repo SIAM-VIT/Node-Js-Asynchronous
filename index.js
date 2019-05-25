@@ -38,9 +38,12 @@ function getRepositories(username,callback){
     },2000);   
 }
 
-function getCommits(userrepo,callback){
-    setTimeout(()=>{
-        console.log('Calling Github commit API...');
-        callback(['commit1','commit2','commit']);
-    },2000);   
+// Do the promise 
+function getCommits(userrepo){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            console.log('Calling Github commit API...');
+            resolve(['commit1','commit2','commit']);
+        },2000);   
+    });
 }
