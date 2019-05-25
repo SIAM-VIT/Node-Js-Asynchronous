@@ -9,7 +9,6 @@ getUser(1,(user)=>{
     });
 });
 
-
 // Using Promises
 getUser(1)
     .then(user => getRepositories(user.gitHubUsername))
@@ -18,25 +17,40 @@ getUser(1)
     .catch(err => console.log('Error',err.message));
 
 
+// Async and Await approach
+async function displayCommits(){
+    try {
+        const user = await getUser(1);
+        const repos = await getRepositories(user.gitHubUsername);
+        const commits = await getCommits(repos[0]);
+        console.log(commits);
+    }
+    catch(err){
+        console.log('Error is there');
+    }
+}
+displayCommits()
+
+
+
 console.log('After');
 
 
-
-function getUser(id,callback){
+function getUser(id){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             console.log('Reading a user from a database...');
-            callback({id:id,gitUserName:'HrithikMittal'});
+            resolve({id:id,gitUserName:'HrithikMittal'});
         },2000);
     });
 
 }
 
-function getRepositories(username,callback){
+function getRepositories(username){
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
             console.log('Calling Github API...');
-            callback(['repo1','repo2','repo3']);
+            resolve(['repo1','repo2','repo3']);
         },2000);
     });
 }
