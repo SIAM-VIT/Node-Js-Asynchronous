@@ -5,6 +5,11 @@ getUser(1,(user) => {
     // Get the repositories
     getRepositories(user.gitUserName,(repos)=>{
         console.log('Repos',repos);
+
+        // Get the commits
+        getCommits(repos,(commits)=>{
+            console.log('Commits',commits);
+        })
     });
 });
 console.log('After');
@@ -26,5 +31,12 @@ function getRepositories(username,callback){
     setTimeout(()=>{
         console.log('Calling Github API...');
         callback(['repo1','repo2','repo3']);
+    },2000);   
+}
+
+function getCommits(userrepo,callback){
+    setTimeout(()=>{
+        console.log('Calling Github commit API...');
+        callback(['commit1','commit2','commit']);
     },2000);   
 }
