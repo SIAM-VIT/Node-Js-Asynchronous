@@ -1,17 +1,30 @@
 console.log('Before');
-const user = getUser(1);
-console.log(user);
+getUser(1,(user) => {
+    console.log('user',user);
+
+    // Get the repositories
+    getRepositories(user.gitUserName,(repos)=>{
+        console.log('Repos',repos);
+    });
+});
 console.log('After');
 
 // Ways to get result of Async Opperation
 // 1.Callbacks
 // 2.Promises
 // 3.Async/await
-function getUser(id){
+
+// This function is Async
+function getUser(id,callback){
     setTimeout(()=>{
         console.log('Reading a user from a database...');
-        return{id:id,gitHubUsername:'HrithikMittal'}
-    },2000); 
+        callback({id:id,gitUserName:'HrithikMittal'});
+    },2000);
+}
 
-    return 1;
+function getRepositories(username,callback){
+    setTimeout(()=>{
+        console.log('Calling Github API...');
+        callback(['repo1','repo2','repo3']);
+    },2000);   
 }
